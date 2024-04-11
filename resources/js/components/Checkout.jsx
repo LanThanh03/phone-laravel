@@ -13,7 +13,7 @@ const Checkout = () => {
     const [fullName, setFullName] = useState("");
     const [province, setProvince] = useState("");
     const [city, setCity] = useState("");
-    const [shippingService, setShippingService] = useState("");
+    //const [shippingService, setShippingService] = useState("");
     const [address, setAddress] = useState("");
     const [address2, setAddress2] = useState("");
     const [postcode, setPostcode] = useState("");
@@ -30,30 +30,26 @@ const Checkout = () => {
             setLoading(false);
         });
 
-        axios.get("/api/provinces").then((res) => {
+       /* axios.get("/api/provinces").then((res) => {
             if (res.status === 200) {
                 setProvinces(Object.values(res.data.provinces));
             }
             setLoading(false);
-        });
+        }); */
         axios.get("/api/users").then((res) => {
             if (res.status === 200) {
-                if (res.data.users.province_id != null) {
-                    setProvinceId(res.data.users.province_id);
-                    setCityId(res.data.users.city_id);
-                }
                 setFullName(
                     res.data.users.username == null
                         ? ""
                         : res.data.users.username
                 );
                 setProvince(
-                    res.data.users.province_id == null
+                    res.data.users.province == null
                         ? ""
-                        : res.data.users.province_id
+                        : res.data.users.province
                 );
                 setCity(
-                    res.data.users.city_id == null ? "" : res.data.users.city_id
+                    res.data.users.city == null ? "" : res.data.users.city
                 );
                 setAddress(
                     res.data.users.address == null ? "" : res.data.users.address
@@ -82,7 +78,7 @@ const Checkout = () => {
         });
     }, []);
 
-    const setProvinceId = (provinceId) => {
+    /*const setProvinceId = (provinceId) => {
         setProvince(provinceId);
         axios.get(`/api/cities?provinceId=${provinceId}`).then((res) => {
             if (res.status === 200) {
@@ -117,7 +113,7 @@ const Checkout = () => {
                 setLoading(false);
                 setWait(false);
             });
-    };
+    }; */
 
     const placeOrder = (e) => {
         e.preventDefault();
@@ -127,10 +123,10 @@ const Checkout = () => {
                 fullName,
                 province,
                 city,
-                shippingService,
+                /*shippingService,*/
                 address,
-                address2,
-                postcode,
+                /*address2,
+                postcode,*/
                 phone,
                 email,
                 notes,
@@ -145,15 +141,15 @@ const Checkout = () => {
     return (
         <>
             <div className="checkout__htmlForm">
-                <h4 className="mb-5">Billing Details</h4>
-                <form onSubmit={placeOrder}>
+                <h4 className="mb-5">Chi tiết đơn hàng</h4>
+                <form action="{{ route('order.store') }}" method="POST" onSubmit={placeOrder}>
                     <div className="row">
                         <div className="col-lg-8 col-md-6">
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="checkout__input">
                                         <p>
-                                            Full Name<span>*</span>
+                                            Họ và tên<span>*</span>
                                         </p>
                                         <input
                                             type="text"
@@ -167,16 +163,17 @@ const Checkout = () => {
                             </div>
                             <div className="checkout__input">
                                 <p>
-                                    Province<span>*</span>
+                                    Tỉnh/Thành phố<span></span>
                                 </p>
-                                <select
+                                <input
                                     className="form-control"
+                                    type="text"
                                     value={province}
                                     onChange={(e) =>
-                                        setProvinceId(e.target.value)
+                                        setProvince(e.target.value)
                                     }
                                 >
-                                    <option value="">=== Choose ===</option>
+                                   {/* <option value="">=== Choose ===</option>
                                     {provinces.map((province, index) => {
                                         return (
                                             <option
@@ -184,22 +181,22 @@ const Checkout = () => {
                                                 value={index + 1}
                                             >
                                                 {province}
-                                            </option>
+                                            </option>*
                                         );
-                                    })}
-                                </select>
+                                    })} */}
+                                </input>
                             </div>
                             <div className="checkout__input">
                                 <p>
-                                    City<span>*</span>
+                                    Huyện/Quận<span></span>
                                 </p>
-                                <select
+                                <input
                                     id="city"
                                     className="form-control"
                                     value={city}
-                                    onChange={(e) => setCityId(e.target.value)}
+                                    onChange={(e) => setCity(e.target.value)}
                                 >
-                                    <option value="">=== Choose ===</option>
+                                    {/*<option value="">=== Choose ===</option>
                                     {Object.entries(cities).map(
                                         (city, index) => {
                                             return (
@@ -211,12 +208,13 @@ const Checkout = () => {
                                                 </option>
                                             );
                                         }
-                                    )}
-                                </select>
+                                    )} */}
+                                </input>
                             </div>
+                            {/*
                             <div className="checkout__input">
                                 <p>
-                                    Shipping Service<span>*</span>
+                                    Shipping Service<span></span>
                                 </p>
                                 <select
                                     className="form-control"
@@ -239,6 +237,7 @@ const Checkout = () => {
                                     })}
                                 </select>
                             </div>
+                                */}
                             <div className="checkout__input">
                                 <p>
                                     Address<span>*</span>
@@ -250,6 +249,7 @@ const Checkout = () => {
                                     value={address}
                                     onChange={(e) => setAddress(e.target.value)}
                                 />
+                                {/*
                                 <input
                                     type="text"
                                     value={address2}
@@ -257,8 +257,9 @@ const Checkout = () => {
                                         setAddress2(e.target.value)
                                     }
                                     placeholder="Apartment, suite, unite ect (optinal)"
-                                />
+                                /> */}
                             </div>
+                            {/*
                             <div className="checkout__input">
                                 <p>
                                     Postcode / ZIP<span>*</span>
@@ -271,6 +272,7 @@ const Checkout = () => {
                                     }
                                 />
                             </div>
+                            */}
                             <div className="row">
                                 <div className="col-lg-6">
                                     <div className="checkout__input">
@@ -340,18 +342,18 @@ const Checkout = () => {
                                 <div className="checkout__order__total">
                                     Total <span>{total}</span>
                                 </div>
-                                {wait ? (
+                                {/*{wait ? (
                                     <button
                                         type="submit"
                                         className="site-btn disabled"
                                     >
                                         Loading....
                                     </button>
-                                ) : (
+                                ) : ( */}
                                     <button type="submit" className="site-btn">
-                                        PLACE ORDER
+                                    ĐẶT HÀNG
                                     </button>
-                                )}
+                               {/* )}*/}
                             </div>
                         </div>
                     </div>

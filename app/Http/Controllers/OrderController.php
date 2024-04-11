@@ -17,8 +17,12 @@ class OrderController extends Controller
 	{
         return view('frontend.order.checkout');
     }
+	public function verifycheckout()
+	{
+        return view('/');
+    }
 
-    private function getSelectedShipping($destination, $totalWeight, $shippingService)
+    /*private function getSelectedShipping($destination, $totalWeight, $shippingService)
 	{
 		$shippingOptions = $this->getShippingCost($destination, $totalWeight);
 
@@ -33,7 +37,7 @@ class OrderController extends Controller
 		}
 
 		return $selectedShipping;
-	}
+	}*/
 
     public function checkout(Request $request){
         $params = $request->except('_token');
@@ -47,13 +51,13 @@ class OrderController extends Controller
 				$totalWeight += ($item->quantity * $item->associatedModel->weight);
 			}
 
-			$selectedShipping = $this->getSelectedShipping($destination,$totalWeight, $params['shippingService']);
+			//$selectedShipping = $this->getSelectedShipping($destination,$totalWeight, $params['shippingService']);
 			
 			$baseTotalPrice = \Cart::getSubTotal();
-			$shippingCost = $selectedShipping['cost'];
+			//$shippingCost = $selectedShipping['cost'];
 			$discountAmount = 0;
 			$discountPercent = 0;
-			$grandTotal = ($baseTotalPrice + $shippingCost) - $discountAmount;
+			$grandTotal = $baseTotalPrice;
 	
 			$orderDate = date('Y-m-d H:i:s');
 			$paymentDue = (new \DateTime($orderDate))->modify('+3 day')->format('Y-m-d H:i:s');
@@ -61,10 +65,10 @@ class OrderController extends Controller
 			$user_profile = [
 				'username' => $params['fullName'],
 				'address' => $params['address'],
-				'address2' => $params['address2'],
-				'province_id' => $params['province'],
-				'city_id' => $params['city'],
-				'postcode' => $params['postcode'],
+				//'address2' => $params['address2'],
+				'province' => $params['province'],
+				'city' => $params['city'],
+				//'postcode' => $params['postcode'],
 				'phone' => $params['phone'],
 				'email' => $params['email'],
 			];
@@ -79,21 +83,21 @@ class OrderController extends Controller
 				'payment_due' => $paymentDue,
 				'payment_status' => Order::UNPAID,
 				'base_total_price' => $baseTotalPrice,
-				'discount_amount' => $discountAmount,
-				'discount_percent' => $discountPercent,
-				'shipping_cost' => $shippingCost,
+				//'discount_amount' => $discountAmount,
+				//'discount_percent' => $discountPercent,
+				//'shipping_cost' => $shippingCost,
 				'grand_total' => $grandTotal,
 				'customer_first_name' => $params['fullName'],
 				'customer_address' => $params['address'],
-				'customer_address2' => $params['address2'],
+				//'customer_address2' => $params['address2'],
 				'customer_phone' => $params['phone'],
 				'customer_email' => $params['email'],
-				'customer_city_id' => $params['city'],
-				'customer_province_id' => $params['province'],
-				'customer_postcode' => $params['postcode'],
+				'customer_city' => $params['city'],
+				'customer_province' => $params['province'],
+				//'customer_postcode' => $params['postcode'],
 				'notes' => $params['notes'],
-				'shipping_courier' => $selectedShipping['courier'],
-				'shipping_service_name' => $selectedShipping['service'],
+				//'shipping_courier' => $selectedShipping['courier'],
+				//'shipping_service_name' => $selectedShipping['service'],
 			];
 
 			$order = Order::create($orderParams);
@@ -132,7 +136,7 @@ class OrderController extends Controller
 				}
 			}
 
-			$shippingFirstName = $params['fullName'];
+			/*$shippingFirstName = $params['fullName'];
 			$shippingAddress1 = $params['address'];
 			$shippingAddress2 = $params['address2'];
 			$shippingPhone = $params['phone'];
@@ -156,7 +160,7 @@ class OrderController extends Controller
 				'province_id' => $shippingProvinceId,
 				'postcode' => $shippingPostcode,
 			];
-			Shipment::create($shipmentParams);
+			Shipment::create($shipmentParams);*/
 
 			return $order;
 
@@ -195,7 +199,7 @@ class OrderController extends Controller
 			]
 		];
 
-		try{
+		/*try{
 			$snap = Snap::createTransaction($transaction_details);
 	
 			$order->payment_token = $snap->token;
@@ -206,7 +210,7 @@ class OrderController extends Controller
 		}
 		catch(Exception $e) {
 			echo $e->getMessage();
-		}
+		}*/
 
 	}
 }

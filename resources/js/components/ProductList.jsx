@@ -27,6 +27,7 @@ const ProductList = () => {
         });
     };
 
+    
     return (
         <>
             {loading ? (
@@ -71,7 +72,7 @@ const ProductList = () => {
                                             {product.name}
                                         </a>
                                     </h6>
-                                    <h5>${product.price}</h5>
+                                    <h5>{product.price}vnđ</h5>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +80,38 @@ const ProductList = () => {
                 })
             )}
         </>
-    );
+    ); 
+    {/*
+    return (
+        <>
+          {loading ? (
+            <h2>Loading...</h2>
+          ) : products.length === 0 ? (
+            <h3>Not Found !</h3>
+          ) : (
+            <table className="table table-striped">
+              <tbody>
+                {products.map((product, index) => (
+                  <td key={product.id} className=" col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                    <tr>
+                      <img
+                        src={product.media[0].original_url}
+                        alt={product.name}
+                        style={{ width: "300px" }}
+                      /> <br />
+                      <a href={`product/${product.slug}`}>{product.name}</a><br />
+                      {product.price}vnđ <br />
+                      <a href="#" onClick={(e) => addToCart(e, product.id)}>
+                        <i className="fa fa-shopping-cart"></i> Add to Cart
+                      </a>
+                    </tr>
+                  </td>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </>
+      );*/}
 };
 
 export default ProductList;

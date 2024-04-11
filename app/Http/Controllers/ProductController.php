@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
     public function show(Request $request, Product $product)
     {
         $cartTotal = \Cart::getTotal();

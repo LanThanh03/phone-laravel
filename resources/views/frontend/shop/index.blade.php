@@ -28,7 +28,6 @@
             @include('frontend.shop.sidebar')
           </div>
           <div class="col-lg-9 col-md-7" id="product-shop">
-           
           </div>
         </div>
       </div>

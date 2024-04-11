@@ -55,7 +55,7 @@
               </div>
               <div class="product__item__text">
                 <h6><a href="">{{ $related_product->name }}</a></h6>
-                <h5>${{ $related_product->price }}</h5>
+                <h5>{{ $related_product->price }} vnđ</h5>
               </div>
             </div>
           </div>

@@ -6,8 +6,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Ogani | Template</title>
-
+    <title>PHONE STORE</title>
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
@@ -24,7 +23,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css" />
   </head>
-
   <body>
     <!-- Page Preloder -->
     <div id="preloder">
@@ -101,7 +99,6 @@
       <div class="humberger__menu__contact">
         <ul>
           <li><i class="fa fa-envelope"></i> phone@gmail.com</li>
-          <li>Free Shipping for all Order of $99</li>
         </ul>
       </div>
     </div>

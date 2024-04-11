@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-striped table-bordered"  id = "categories-table">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -58,4 +58,7 @@
                     </table>
                 </div>
             </div>
+    <script>
+        new DataTable('#categories-table');
+    </script>
 @endsection

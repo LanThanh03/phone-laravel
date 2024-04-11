@@ -96,7 +96,7 @@ const ProductDetail = () => {
                                     <span>(18 reviews)</span>
                                 </div>
                                 <div className="product__details__price">
-                                    ${product.price}
+                                    {product.price}vnđ
                                 </div>
                                 <p>{product.description}</p>
                                 <form
@@ -145,10 +145,10 @@ const ProductDetail = () => {
                                     <span className="icon_heart_alt"></span>
                                 </a>
                                 <ul>
-                                    <li>
+                                    {/*<li>
                                         <b>Weight</b>{" "}
                                         <span>{product.weight} gram</span>
-                                    </li>
+                                                </li> 
                                     <li>
                                         <b>Share on</b>
                                         <div className="share">
@@ -165,7 +165,7 @@ const ProductDetail = () => {
                                                 <i className="fa fa-pinterest"></i>
                                             </a>
                                         </div>
-                                    </li>
+                                    </li>*/}
                                 </ul>
                             </div>
                         </div>
