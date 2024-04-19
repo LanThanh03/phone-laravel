@@ -7,10 +7,10 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <div class="breadcrumb__text">
-              <h2>Checkout</h2>
+              <h2>THANH TOÁN</h2>
               <div class="breadcrumb__option">
-                <a href="/">Home</a>
-                <span>Checkout</span>
+                <a href="/">Trang chủ</a>
+                <span>Thanh toán</span>
               </div>
             </div>
           </div>

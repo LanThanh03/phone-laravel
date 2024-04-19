@@ -3,9 +3,9 @@
 @section('content')
         <div class="card">
             <div class="card-header">
-                <h3>Edit product
+                <h3>CHỈNH SỬA SẢN PHẨM
                     <a href="{{ route('admin.products.index') }}" class="btn btn-primary float-right">
-                        Go Back
+                        Quay lại
                     </a>
                 </h3>     
             </div>
@@ -14,7 +14,7 @@
                     @csrf 
                     @method('put')
                     <div class="form-group">
-                    <label for="category_id">Category</label>
+                    <label for="category_id">Danh mục</label>
                     <select class="form-control" name="category_id" id="">
                         @foreach($categories as $id => $categoryName)
                             <option {{ $id === $product->category->id ? 'selected' : null }} value="{{ $id }}">{{ $categoryName }}</option>
@@ -30,31 +30,31 @@
                         </select>   
                     </div>
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Tên Sản Phẩm</label>
                         <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="price">price</label>
+                        <label for="price">Giá Tiền</label>
                         <input type="number" name="price" value="{{ old('price', $product->price) }}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="quantity">quantity</label>
+                        <label for="quantity">Số Lượng</label>
                         <input type="number" name="quantity" value="{{ old('quantity', $product->quantity) }}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="weight">weight</label>
+                        <label for="weight">Khối Lượng</label>
                         <input type="number" name="weight" value="{{ old('weight', $product->weight) }}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="description">description</label>
+                        <label for="description">Mô Tả</label>
                         <textarea class="form-control" name="description" id="description" cols="30" rows="5">{{ $product->description }}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="details">details</label>
+                        <label for="details">Chi Tiết</label>
                         <textarea class="form-control" name="details" id="details" cols="30" rows="5">{{ $product->details }}</textarea>
                     </div>
                     <div class="form-group {{ $errors->has('gallery') ? 'has-error' : '' }}">
-                        <label for="gallery">gallery</label>
+                        <label for="gallery">Thư Viện</label>
                         <div class="needsclick dropzone" id="gallery-dropzone">
 
                         </div>
@@ -65,7 +65,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
                     </div>
                 </form>
             </div>

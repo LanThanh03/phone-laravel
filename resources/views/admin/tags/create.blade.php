@@ -3,9 +3,9 @@
 @section('content')
         <div class="card">
             <div class="card-header">
-                <h3>Create tag
+                <h3>THÊM MỚI TAG
                     <a href="{{ route('admin.tags.index') }}" class="btn btn-primary float-right">
-                        Go Back
+                        Quay lại
                     </a>
                 </h3>     
             </div>
@@ -13,11 +13,11 @@
                 <form action="{{ route('admin.tags.store') }}" method="post">
                     @csrf 
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Tên Tag</label>
                         <input type="text" name="name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
                     </div>
                 </form>
             </div>

@@ -69,7 +69,7 @@ const ProductShop = () => {
                                     columnGap: ".5rem",
                                 }}
                             >
-                                <label>Sort By :</label>
+                                <label>Sắp xếp theo:</label>
                                 <select
                                     name="sortingBy"
                                     style={{ width: "150px" }}
@@ -77,16 +77,16 @@ const ProductShop = () => {
                                     onChange={(e) => sorting(e.target.value)}
                                 >
                                     <option value="default">
-                                        Default sorting
+                                        Mặc định
                                     </option>
                                     <option value="popularity">
-                                        Popularity
+                                        Phổ biến
                                     </option>
                                     <option value="low-high">
-                                        Price: Low to High
+                                        Giá: Từ thấp tới cao
                                     </option>
                                     <option value="high-low">
-                                        Price: High to Low
+                                        Giá: Từ cao xuống thấp
                                     </option>
                                 </select>
                             </div>
@@ -95,7 +95,7 @@ const ProductShop = () => {
                     <div className="col-lg-4 col-md-4">
                         <div className="filter__found">
                             <h6>
-                                <span>{products.length}</span> Products found
+                                <span>{products.length}</span> Sản phẩm được tìm thấy
                             </h6>
                         </div>
                     </div>
@@ -111,9 +111,9 @@ const ProductShop = () => {
                 {loading ? (
                     <h3>Loading...</h3>
                 ) : error === "Not Found" ? (
-                    <h3>Not Found !</h3>
+                    <h3>Không tìm thấy !</h3>
                 ) : products.length === 0 ? (
-                    <h3>Not Found !</h3>
+                    <h3>Không tìm thấy !</h3>
                 ) : (
                     products.map((product) => {
                         return (
@@ -162,7 +162,7 @@ const ProductShop = () => {
                     })
                 )}
             </div>
-            <div className="d-flex justify-content-center">pagination</div>
+            <div className="d-flex justify-content-center">Phân trang</div>
         </>
     );
 };

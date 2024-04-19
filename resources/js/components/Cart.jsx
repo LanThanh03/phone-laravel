@@ -46,9 +46,9 @@ const Cart = () => {
                 {carts.length === 0 ? (
                     <tr>
                         <td colSpan="5">
-                            Cart is Empty{" "}
+                            Giỏ Hàng Đang Trống{" "}
                             <a href="/shop" className="btn btn-dark">
-                                Go Shopping
+                                Mua Sắm
                             </a>
                         </td>
                     </tr>
@@ -130,11 +130,11 @@ const Cart = () => {
                             <thead>
                                 <tr>
                                     <th className="shoping__product">
-                                        Products
+                                        Sản Phẩm
                                     </th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
+                                    <th>Thành tiền</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng tiền</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -147,28 +147,28 @@ const Cart = () => {
                 <div className="col-lg-12">
                     <div className="shoping__cart__btns">
                         <a href="#" className="primary-btn cart-btn">
-                            CONTINUE SHOPPING
+                            TIẾP TỤC MUA SẮM
                         </a>
                         <a
                             href="#"
                             className="primary-btn cart-btn cart-btn-right"
                         >
                             <span className="icon_loading"></span>
-                            Upadate Cart
+                            Cập nhật giỏ hàng
                         </a>
                     </div>
                 </div>
                 <div className="col-lg-6">
                     <div className="shoping__continue">
                         <div className="shoping__discount">
-                            <h5>Discount Codes</h5>
+                            <h5>Mã giảm giá</h5>
                             <form action="#">
                                 <input
                                     type="text"
-                                    placeholder="Enter your coupon code"
+                                    placeholder="Nhập mã giảm giá"
                                 />
                                 <button type="submit" className="site-btn">
-                                    APPLY COUPON
+                                    ÁP DỤNG MÃ
                                 </button>
                             </form>
                         </div>
@@ -176,17 +176,17 @@ const Cart = () => {
                 </div>
                 <div className="col-lg-6">
                     <div className="shoping__checkout">
-                        <h5>Cart Total</h5>
+                        <h5>Tổng Giỏ Hàng</h5>
                         <ul>
                             <li>
-                                Subtotal <span>{total}vnđ</span>
+                                Tổng phụ <span>{total}vnđ</span>
                             </li>
                             <li>
-                                Total <span>{total}vnđ</span>
+                                Tổng tiền <span>{total}vnđ</span>
                             </li>
                         </ul>
                         <a href="/order/checkout" className="primary-btn">
-                            PROCEED TO CHECKOUTS
+                            TIẾN HÀNH THANH TOÁN
                         </a>
                     </div>
                 </div>

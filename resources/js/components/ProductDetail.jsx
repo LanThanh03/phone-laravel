@@ -138,7 +138,7 @@ const ProductDetail = () => {
                                         className="primary-btn"
                                         style={{ border: "none" }}
                                     >
-                                        ADD TO CARD
+                                        THÊM VÀO GIỎ HÀNG
                                     </button>
                                 </form>
                                 <a href="#" className="heart-icon">
@@ -180,7 +180,7 @@ const ProductDetail = () => {
                                             role="tab"
                                             aria-selected="true"
                                         >
-                                            Description
+                                            Mô Tả
                                         </a>
                                     </li>
                                     <li className="nav-item">
@@ -191,7 +191,7 @@ const ProductDetail = () => {
                                             role="tab"
                                             aria-selected="false"
                                         >
-                                            Reviews <span>(1)</span>
+                                            Giới thiệu <span>(1)</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -202,7 +202,7 @@ const ProductDetail = () => {
                                         role="tabpanel"
                                     >
                                         <div className="product__details__tab__desc">
-                                            <h6>Products Infomation</h6>
+                                            <h6>Thông tin sản phẩm</h6>
                                             {product.details}
                                         </div>
                                     </div>

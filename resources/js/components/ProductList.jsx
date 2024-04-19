@@ -21,7 +21,7 @@ const ProductList = () => {
 
         axios.post("carts", { productId }).then((res) => {
             if (res.status === 200) {
-                swal("Success", "Added to Cart !", "success");
+                swal("Thành công", "Đã thêm vào giỏ hàng !", "Thành công");
                 window.location.reload();
             }
         });
@@ -33,7 +33,7 @@ const ProductList = () => {
             {loading ? (
                 <h2>Loading...</h2>
             ) : products.length === 0 ? (
-                <h3>Not Found !</h3>
+                <h3>Không tìm thấy !</h3>
             ) : (
                 products.map((product, index) => {
                     return (

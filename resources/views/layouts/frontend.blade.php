@@ -50,11 +50,11 @@
           @guest
             <div class="header__top__right__language">
               <div class="header__top__right__auth">
-                <a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a>
+                <a href="{{ route('login') }}"><i class="fa fa-user"></i> Đăng Nhập</a>
               </div>
             </div>
             <div class="header__top__right__auth" style="margin-left: 20px">
-              <a href="{{ route('register') }}"><i class="fa fa-user"></i> Register</a>
+              <a href="{{ route('register') }}"><i class="fa fa-user"></i> Đăng Kí</a>
             </div>
           @else 
           <div class="header__top__right__language">
@@ -67,7 +67,7 @@
             </ul>
           </div>
           <div class="header__top__right__auth" style="margin-left: 20px">
-            <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-user"></i> Logout</a>
+            <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-user"></i> Đăng Xuất</a>
             <form action="{{ route('logout') }}" id="logout-form" method="post">
               @csrf 
 
@@ -77,17 +77,17 @@
       </div>
       <nav class="humberger__menu__nav mobile-menu">
         <ul>
-          <li class="active"><a href="/">Home</a></li>
+          <li class="active"><a href="/">Trang chủ</a></li>
           <li><a href="{{ route('shop.index') }}">Shop</a></li>
           <li>
-            <a href="#">Categories</a>
+            <a href="#">Danh Mục</a>
             <ul class="header__menu__dropdown">
               @foreach($menu_categories as $menu_category)
                 <li><a href="{{ route('shop.index', $menu_category->slug) }}">{{ $menu_category->name }}</a></li>
               @endforeach
             </ul>
           </li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#">Liên hệ</a></li>
         </ul>
       </nav>
       <div id="mobile-menu-wrap"></div>
@@ -123,11 +123,10 @@
                       class="header__top__right__language header__top__right__auth"
                     >
                       <a class="d-inline" href="{{ route('login') }}"
-                        ><i class="fa fa-user"></i> Login</a
-                      >
+                        ><i class="fa fa-user"></i> Đăng nhập</a>
                     </div>
                     <div class="header__top__right__auth">
-                      <a href="{{ route('register') }}"><i class="fa fa-user"></i> Register</a>
+                      <a href="{{ route('register') }}"><i class="fa fa-user"></i> Đăng kí</a>
                     </div>
                 </div>
                 @else 
@@ -140,11 +139,11 @@
                   >
                   <span class="arrow_carrot-down"></span>
                   <ul>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Hồ sơ</a></li>
                   </ul>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit()"><i class="fa fa-user"></i> Logout</a>
+                  <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit()"><i class="fa fa-user"></i> Đăng xuất</a>
                   <form action="{{ route('logout') }}" id="logout-form" method="post">
                     @csrf                   
                   </form>
@@ -165,17 +164,17 @@
           <div class="col-lg-6">
             <nav class="header__menu">
               <ul>
-                <li class="active"><a href="/">Home</a></li>
+                <li class="active"><a href="/">Trang chủ</a></li>
                 <li><a href="{{ route('shop.index') }}">Shop</a></li>
                 <li>
-                  <a href="#">Categories</a>
+                  <a href="#">Danh mục</a>
                   <ul class="header__menu__dropdown">
                     @foreach($menu_categories as $menu_category)
                       <li><a href="{{ route('shop.index', $menu_category->slug) }}">{{ $menu_category->name }}</a></li>
                     @endforeach
                   </ul>
                 </li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#">Liên Hệ</a></li>
               </ul>
             </nav>
           </div>
@@ -211,7 +210,7 @@
               <div class="hero__search__form">
                 <form action="#">
                   <input type="text" placeholder="What do yo u need?" />
-                  <button type="submit" class="site-btn">SEARCH</button>
+                  <button type="submit" class="site-btn">Tìm Kiếm</button>
                 </form>
               </div>
               <div class="hero__search__phone">
