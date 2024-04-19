@@ -201,9 +201,17 @@ class OrderController extends Controller
 		// $order = DB::select("select * from order_items i, products p, orders o
 		// 	where i.product_id = p.id and i.id = o.id
 		// 	and o.id = ?",[$user->id]);
-		$order = DB::select("select * from order_items i, products p, orders o
-			where i.product_id = p.id and i.id = o.id
-			and i.id = ?",[$user->id]);
+		$order = DB::select("SELECT *
+		FROM order_items AS i
+		JOIN products AS p ON i.product_id = p.id
+		JOIN orders AS o ON i.order_id = o.id
+		WHERE o.user_id = ? AND o.id = (
+			SELECT MAX(id)
+			FROM orders
+			WHERE user_id = ?
+		)
+	", [$user->id, $user->id]);
+	
 		$user->notify(new TestSendEmail($order));
 
 		// $transaction_details = [
