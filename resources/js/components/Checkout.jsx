@@ -133,7 +133,7 @@ const Checkout = () => {
             })
             .then((res) => {
                 setTotal(0);
-                window.location.href = res.data;
+                window.location.href = res.data.testemail;
                 return null;
             });
     };

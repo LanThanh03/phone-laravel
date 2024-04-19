@@ -1,5 +1,6 @@
 <?php
-
+use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\CovidController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
+// This Route Return The View.
+Route::view('bar-chart', 'charts.bar-chart')->name('bar-chart');;
 
+// This Route Returns the data for bar chart AJAX
+Route::controller(CovidController::class)->group(function () {
+    Route::get('bar-chart-data', 'getBarChartData');
+    Route::get('aa', 'addData');
+});
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('homepage');
 Route::get('/shop/{slug?}', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/tag/{slug?}', [\App\Http\Controllers\ShopController::class, 'tag'])->name('shop.tag');
@@ -58,10 +66,13 @@ Route::group(['middleware' => 'auth'], function() {
         // products
         Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
         Route::post('products/images', [\App\Http\Controllers\Admin\ProductController::class,'storeImage'])->name('products.storeImage');
+        
     });
 });
-
+Route::get('/export', [App\Http\Controllers\UserController::class, 'export'])->name('export');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/testemail','App\Http\Controllers\OrderController@checkout')->name('testemail');

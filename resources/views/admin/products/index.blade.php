@@ -4,6 +4,9 @@
         <div class="card">
             <div class="card-header">
                 <h3>product List
+                    <a href="{{ route('export') }}" class="btn btn-success float-right">
+                        Export
+                    </a>
                     <a href="{{ route('admin.products.create') }}" class="btn btn-primary float-right">
                         Create
                     </a>

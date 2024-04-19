@@ -10,6 +10,11 @@ use App\Models\Shipment;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Midtrans\Snap;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\TestSendEmail;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
 
 class OrderController extends Controller
 {
@@ -40,6 +45,14 @@ class OrderController extends Controller
 	}*/
 
     public function checkout(Request $request){
+		$request->validate([
+			'fullName' => 'required',
+			'province' => 'required',
+			'city' => 'required',
+			'address' => 'required',
+			'phone' => 'required',
+			'email' => 'required|email',
+                ]); 
         $params = $request->except('_token');
 
 		$order = \DB::transaction(function() use ($params) {
@@ -184,20 +197,28 @@ class OrderController extends Controller
 			'email' => $order->customer_email,
 			'phone' => $order->customer_phone,
 		];
+		$user = auth()->user();
+		// $order = DB::select("select * from order_items i, products p, orders o
+		// 	where i.product_id = p.id and i.id = o.id
+		// 	and o.id = ?",[$user->id]);
+		$order = DB::select("select * from order_items i, products p, orders o
+			where i.product_id = p.id and i.id = o.id
+			and i.id = ?",[$user->id]);
+		$user->notify(new TestSendEmail($order));
 
-		$transaction_details = [
-			'enable_payments' => Payment::PAYMENT_CHANNELS,
-			'transaction_details' => [
-				'order_id' => $order->code,
-				'gross_amount' => $order->grand_total,
-			],
-			'customer_details' => $customerDetails,
-			'expiry' => [
-				'start_time' => date('Y-m-d H:i:s T'),
-				'unit' => Payment::EXPIRY_UNIT,
-				'duration' => Payment::EXPIRY_DURATION,
-			]
-		];
+		// $transaction_details = [
+		// 	'enable_payments' => Payment::PAYMENT_CHANNELS,
+		// 	'transaction_details' => [
+		// 		'order_id' => $order->code,
+		// 		'gross_amount' => $order->grand_total,
+		// 	],
+		// 	'customer_details' => $customerDetails,
+		// 	'expiry' => [
+		// 		'start_time' => date('Y-m-d H:i:s T'),
+		// 		'unit' => Payment::EXPIRY_UNIT,
+		// 		'duration' => Payment::EXPIRY_DURATION,
+		// 	]
+		// ];
 
 		/*try{
 			$snap = Snap::createTransaction($transaction_details);
@@ -212,5 +233,14 @@ class OrderController extends Controller
 			echo $e->getMessage();
 		}*/
 
+
+	}
+
+	function testemail(){
+		// $user = auth()->user();
+		// $order = DB::select("select * from order_items i, products p, orders o
+		// 	where i.product_id = p.id and i.id = o.id
+		// 	and o.id = ?",[$user->id]);
+		// $user->notify(new TestSendEmail($order));
 	}
 }
