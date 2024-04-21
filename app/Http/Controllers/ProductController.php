@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -20,8 +21,8 @@ class ProductController extends Controller
             ->inRandomOrder()
             ->take(4)
             ->get(['id', 'slug', 'name', 'price']);
-
-        return view('frontend.product.show', compact('product', 'related_products', 'cartTotal', 'cartCount'));
+           $comments = Comment::where('product_id', $product->id)->OrderBy('id','DESC')->get();
+        return view('frontend.product.show', compact('product','comments', 'related_products', 'cartTotal', 'cartCount'));
     }
 
     public function getProductDetail(Product $product){
@@ -30,6 +31,21 @@ class ProductController extends Controller
             'status' => 200,
             'product' => $product,
         ]);
-
     }
+    public function postcomment(Request $request, $id){
+   
+        // Lấy nội dung bình luận từ request
+        $commentContent = $request->input('content');
+ 
+        // Tạo bình luận mới và lưu vào cơ sở dữ liệu
+        $comment = new Comment();
+        $comment->product_id = $id;
+        $comment->user_id = auth()->user()->id;
+        $comment->content = $commentContent;
+        $comment->save();
+
+        return redirect()->back()->with('success', 'Bình luận của bạn đã được gửi thành công.');
+   
+    }
+ 
 }
