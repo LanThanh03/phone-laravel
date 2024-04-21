@@ -70,7 +70,6 @@ const ProductList = () => {
     return (
         <>
             <form
-                className={styles.searchForm}
                 style={{ width: '1000px', margin: '0 auto' }}
                 onSubmit={(e) => {
                     e.preventDefault();
@@ -138,13 +137,8 @@ const ProductList = () => {
                         </div>
                     ))}
                     {products.length > visibleProducts && (
-                        <button disabled={loadingMore} onClick={loadMoreProducts}>
-                            {loadingMore ? 'Loading...' : 'Load more'}
-                        </button>
-                    )}
-                    {!allProductsLoaded && visibleProducts === products.length && (
-                        <button onClick={() => setVisibleProducts(8)}>
-                            Ẩn bớt
+                        <button className="btn btn-primary" disabled={loadingMore} onClick={loadMoreProducts}>
+                            {loadingMore ? 'Loading...' : 'Xem thêm'}
                         </button>
                     )}
                 </>
