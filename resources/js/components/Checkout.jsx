@@ -13,14 +13,12 @@ const Checkout = () => {
     const [fullName, setFullName] = useState("");
     const [province, setProvince] = useState("");
     const [city, setCity] = useState("");
-    //const [shippingService, setShippingService] = useState("");
     const [address, setAddress] = useState("");
     const [address2, setAddress2] = useState("");
     const [postcode, setPostcode] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [notes, setNotes] = useState("");
-
     useEffect(() => {
         axios.get("/carts").then((res) => {
             if (res.status === 200) {
@@ -30,12 +28,6 @@ const Checkout = () => {
             setLoading(false);
         });
 
-       /* axios.get("/api/provinces").then((res) => {
-            if (res.status === 200) {
-                setProvinces(Object.values(res.data.provinces));
-            }
-            setLoading(false);
-        }); */
         axios.get("/api/users").then((res) => {
             if (res.status === 200) {
                 setFullName(
@@ -78,63 +70,37 @@ const Checkout = () => {
         });
     }, []);
 
-    /*const setProvinceId = (provinceId) => {
-        setProvince(provinceId);
-        axios.get(`/api/cities?provinceId=${provinceId}`).then((res) => {
-            if (res.status === 200) {
-                setCities(res.data.cities);
-            }
-            setLoading(false);
-        });
-    };
-
-    const setCityId = (city) => {
-        setCity(city);
-        setWait(true);
-        axios.get(`/api/shipping-cost?city=${city}`).then((res) => {
-            setServices(res.data.results);
-            setLoading(false);
-            setWait(false);
-        });
-    };
-
-    const setShippingCostId = (service) => {
-        setShippingService(service);
-        setWait(true);
-        const cityId = document.getElementById("city").value;
-
-        axios
-            .post(`/api/set-shipping`, {
-                shipping_service: service,
-                city_id: cityId,
-            })
-            .then((res) => {
-                setTotal(res.data.data.total);
-                setLoading(false);
-                setWait(false);
-            });
-    }; */
-
     const placeOrder = (e) => {
         e.preventDefault();
+        // Kiểm tra các trường thông tin bắt buộc trước khi gửi yêu cầu đặt hàng
+        if (!fullName || !province || !city || !address || !phone || !email) {
+            // Hiển thị thông báo lỗi và không tiến hành đặt hàng
+            alert("Vui lòng điền đủ thông tin để tiếp tục đặt hàng.");
+            return;
+        }
+        // Nếu các trường thông tin đều được điền, tiến hành gửi yêu cầu đặt hàng
         setWait(true);
         axios
             .post(`/api/checkout`, {
                 fullName,
                 province,
                 city,
-                /*shippingService,*/
                 address,
-                /*address2,
-                postcode,*/
                 phone,
                 email,
                 notes,
             })
             .then((res) => {
+                // Xử lý khi đặt hàng thành công
                 setTotal(0);
                 window.location.href = res.data;
                 return null;
+            })
+            .catch((error) => {
+                // Xử lý khi đặt hàng thất bại
+                alert("Đặt hàng không thành công. Vui lòng thử lại sau!");
+                console.error("Error placing order:", error);
+                setWait(false); // Reset trạng thái chờ
             });
     };
 
@@ -163,7 +129,7 @@ const Checkout = () => {
                             </div>
                             <div className="checkout__input">
                                 <p>
-                                    Tỉnh/Thành phố<span></span>
+                                    Tỉnh/Thành phố<span>*</span>
                                 </p>
                                 <input
                                     className="form-control"
@@ -172,75 +138,22 @@ const Checkout = () => {
                                     onChange={(e) =>
                                         setProvince(e.target.value)
                                     }
-                                >
-                                   {/* <option value="">=== Choose ===</option>
-                                    {provinces.map((province, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={index + 1}
-                                            >
-                                                {province}
-                                            </option>*
-                                        );
-                                    })} */}
-                                </input>
+                                />
                             </div>
                             <div className="checkout__input">
                                 <p>
-                                    Huyện/Quận<span></span>
+                                    Huyện/Quận<span>*</span>
                                 </p>
                                 <input
                                     id="city"
                                     className="form-control"
                                     value={city}
                                     onChange={(e) => setCity(e.target.value)}
-                                >
-                                    {/*<option value="">=== Choose ===</option>
-                                    {Object.entries(cities).map(
-                                        (city, index) => {
-                                            return (
-                                                <option
-                                                    key={index}
-                                                    value={city[0]}
-                                                >
-                                                    {city[1]}
-                                                </option>
-                                            );
-                                        }
-                                    )} */}
-                                </input>
+                                />
                             </div>
-                            {/*
                             <div className="checkout__input">
                                 <p>
-                                    Shipping Service<span></span>
-                                </p>
-                                <select
-                                    className="form-control"
-                                    value={shippingService}
-                                    onChange={(e) =>
-                                        setShippingCostId(e.target.value)
-                                    }
-                                >
-                                    <option value="">=== Choose ===</option>
-                                    {services.map((service, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={service.service.replace(
-                                                    /\s/g,
-                                                    ""
-                                                )}
-                                            >{`${service.service} | ${service.cost} | ${service.etd} `}</option>
-                                        );
-                                    })}
-                                </select>
-                            </div>
-                                */}
-                            <div className="checkout__input">
-                                <p>
-                                    Address<span>*</span>
+                                    Địa chỉ<span>*</span>
                                 </p>
                                 <input
                                     placeholder="Street Address"
@@ -249,35 +162,12 @@ const Checkout = () => {
                                     value={address}
                                     onChange={(e) => setAddress(e.target.value)}
                                 />
-                                {/*
-                                <input
-                                    type="text"
-                                    value={address2}
-                                    onChange={(e) =>
-                                        setAddress2(e.target.value)
-                                    }
-                                    placeholder="Apartment, suite, unite ect (optinal)"
-                                /> */}
                             </div>
-                            {/*
-                            <div className="checkout__input">
-                                <p>
-                                    Postcode / ZIP<span>*</span>
-                                </p>
-                                <input
-                                    type="text"
-                                    value={postcode}
-                                    onChange={(e) =>
-                                        setPostcode(e.target.value)
-                                    }
-                                />
-                            </div>
-                            */}
                             <div className="row">
                                 <div className="col-lg-6">
                                     <div className="checkout__input">
                                         <p>
-                                            Phone<span>*</span>
+                                            Số điện thoại<span>*</span>
                                         </p>
                                         <input
                                             type="text"
@@ -305,7 +195,7 @@ const Checkout = () => {
                             </div>
                             <div className="checkout__input">
                                 <p>
-                                    Order notes<span>*</span>
+                                    Ghi chú đơn hàng<span></span>
                                 </p>
                                 <input
                                     type="text"
@@ -317,9 +207,9 @@ const Checkout = () => {
                         </div>
                         <div className="col-lg-4 col-md-6">
                             <div className="checkout__order">
-                                <h4>Your Order</h4>
+                                <h4>Đơn hàng của bạn</h4>
                                 <div className="checkout__order__products">
-                                    Products <span>Total</span>
+                                    Sản phẩm <span>Tổng cộng</span>
                                 </div>
                                 <ul>
                                     {loading ? (
@@ -340,20 +230,11 @@ const Checkout = () => {
                                     )}
                                 </ul>
                                 <div className="checkout__order__total">
-                                    Total <span>{total}</span>
+                                    Tổng cộng <span>{total}</span>
                                 </div>
-                                {/*{wait ? (
-                                    <button
-                                        type="submit"
-                                        className="site-btn disabled"
-                                    >
-                                        Loading....
-                                    </button>
-                                ) : ( */}
-                                    <button type="submit" className="site-btn">
+                                <button type="submit" className="site-btn">
                                     ĐẶT HÀNG
-                                    </button>
-                               {/* )}*/}
+                                </button>
                             </div>
                         </div>
                     </div>

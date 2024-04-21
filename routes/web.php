@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
-
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('homepage');
 Route::get('/shop/{slug?}', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/tag/{slug?}', [\App\Http\Controllers\ShopController::class, 'tag'])->name('shop.tag');
@@ -65,3 +61,4 @@ Route::group(['middleware' => 'auth'], function() {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');

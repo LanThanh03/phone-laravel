@@ -7,6 +7,8 @@ const ProductShop = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage] = useState(6); // Số lượng sản phẩm trên mỗi trang
 
     const search = window.location.pathname;
     let slug = search.split("/").slice(-1).pop();
@@ -55,6 +57,40 @@ const ProductShop = () => {
             });
     };
 
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    const Pagination = ({ productsPerPage, totalProducts, paginate }) => {
+        const pageNumbers = [];
+    
+        for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
+            pageNumbers.push(i);
+        }
+    
+        return (
+            <nav>
+                <ul className="pagination justify-content-center">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                        <a className="page-link" href="#" onClick={() => paginate(currentPage - 1)}>&laquo; Trước</a>
+                    </li>
+                    {pageNumbers.map((number) => (
+                        <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                            <a onClick={() => paginate(number)} href="#" className="page-link">
+                                {number}
+                            </a>
+                        </li>
+                    ))}
+                    <li className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
+                        <a className="page-link" href="#" onClick={() => paginate(currentPage + 1)}>Sau &raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        );
+    };
+
     return (
         <>
             <div className="filter__item">
@@ -69,7 +105,7 @@ const ProductShop = () => {
                                     columnGap: ".5rem",
                                 }}
                             >
-                                <label>Sort By :</label>
+                                <label>Sắp xếp theo :</label>
                                 <select
                                     name="sortingBy"
                                     style={{ width: "150px" }}
@@ -77,16 +113,16 @@ const ProductShop = () => {
                                     onChange={(e) => sorting(e.target.value)}
                                 >
                                     <option value="default">
-                                        Default sorting
+                                        Mặc định
                                     </option>
                                     <option value="popularity">
-                                        Popularity
+                                        Phổ biến
                                     </option>
                                     <option value="low-high">
-                                        Price: Low to High
+                                        Giá: Thấp tới Cao
                                     </option>
                                     <option value="high-low">
-                                        Price: High to Low
+                                        Giá: Cao tới Thấp
                                     </option>
                                 </select>
                             </div>
@@ -95,11 +131,11 @@ const ProductShop = () => {
                     <div className="col-lg-4 col-md-4">
                         <div className="filter__found">
                             <h6>
-                                <span>{products.length}</span> Products found
+                                <span>{products.length}</span> Sản phẩm tìm thấy
                             </h6>
                         </div>
                     </div>
-
+    
                     <div className="col-lg-4 col-md-3">
                         <div className="filter__option">
                             <span className="icon_grid-2x2"></span>
@@ -107,64 +143,42 @@ const ProductShop = () => {
                     </div>
                 </div>
             </div>
-            <div className="row">
-                {loading ? (
-                    <h3>Loading...</h3>
-                ) : error === "Not Found" ? (
-                    <h3>Not Found !</h3>
-                ) : products.length === 0 ? (
-                    <h3>Not Found !</h3>
-                ) : (
-                    products.map((product) => {
-                        return (
-                            <div
-                                key={product.id}
-                                className="col-lg-4 col-md-6 col-sm-6"
-                            >
-                                <div className="product__item">
-                                    <div
-                                        className="product__item__pic"
-                                        style={{
-                                            backgroundImage: `url(${product.media[0].original_url})`,
-                                        }}
-                                    >
-                                        <ul className="product__item__pic__hover">
-                                            <li>
-                                                <a href="#">
-                                                    <i className="fa fa-heart"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    onClick={(e) =>
-                                                        addToCart(e, product.id)
-                                                    }
-                                                >
-                                                    <i className="fa fa-shopping-cart"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div className="product__item__text">
-                                        <h6>
-                                            <a
-                                                href={`/product/${product.slug}`}
-                                            >
-                                                {product.name}
-                                            </a>
-                                        </h6>
-                                        <h5>{product.price} vnđ</h5>
+            <div className="product-shop-wrapper">
+                <div className="row">
+                    {loading ? (
+                        <h3>Loading...</h3>
+                    ) : error === "Not Found" ? (
+                        <h3>Không tìm thấy !</h3>
+                    ) : products.length === 0 ? (
+                        <h3>Không tìm thấy !</h3>
+                    ) : (
+                        <>
+                            {currentProducts.map((product) => (
+                                <div key={product.id} className="col-lg-4 col-md-6 col-sm-6">
+                                    <div className="product__item">
+                                        <div className="product__item__pic" style={{backgroundImage: `url(${product.media[0].original_url})`}}>
+                                            <ul className="product__item__pic__hover">
+                                                <li><a href="#"><i className="fa fa-heart"></i></a></li>
+                                                <li><a href="#" onClick={(e) => addToCart(e, product.id)}><i className="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div className="product__item__text">
+                                            <h6><a href={`/product/${product.slug}`}>{product.name}</a></h6>
+                                            <h5>{product.price} vnđ</h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })
-                )}
+                            ))}
+                        </>
+                    )}
+                </div>
+                <div className="d-flex justify-content-center mt-3">
+                    <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate} />
+                </div>
             </div>
-            <div className="d-flex justify-content-center">pagination</div>
         </>
     );
+    
 };
 
 export default ProductShop;
