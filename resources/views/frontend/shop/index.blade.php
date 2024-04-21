@@ -10,7 +10,7 @@
             <div class="breadcrumb__text">
               <h2>PHONE STORE</h2>
               <div class="breadcrumb__option">
-                <a href="./index.html">Home</a>
+                <a href="./index.html">Trang Chủ</a>
                 <span>Shop</span>
               </div>
             </div>

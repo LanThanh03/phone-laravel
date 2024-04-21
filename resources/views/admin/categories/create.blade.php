@@ -3,9 +3,9 @@
 @section('content')
         <div class="card">
             <div class="card-header">
-                <h3>Create Category
+                <h3>THÊM MỚI DANH MỤC
                     <a href="{{ route('admin.categories.index') }}" class="btn btn-primary float-right">
-                        Go Back
+                        Quay lại
                     </a>
                 </h3>     
             </div>
@@ -13,11 +13,11 @@
                 <form action="{{ route('admin.categories.store') }}" method="post">
                     @csrf 
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Tên Sản Phẩm</label>
                         <input type="text" name="name" class="form-control">
                     </div>
                     <div class="form-group {{ $errors->has('photo') ? 'has-error' : '' }}">
-                        <label for="photo">Photo</label>
+                        <label for="photo">Hình Ảnh</label>
                         <div class="needsclick dropzone" id="photo-dropzone">
 
                         </div>
@@ -28,16 +28,16 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="parent">Parent</label>
+                        <label for="parent">Danh Mục Lớn</label>
                         <select name="category_id" class="form-control">
-                            <option value="">-- Default --</option>
+                            <option value="">-- Mặc Định --</option>
                             @foreach($categories as $id => $categoryName)
                                 <option value="{{ $id }}">{{ $categoryName }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
                     </div>
                 </form>
             </div>

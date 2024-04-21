@@ -134,6 +134,7 @@ const Checkout = () => {
             .then((res) => {
                 setTotal(0);
                 window.location.href = res.data.testemail;
+                window.location.href = '/';
                 return null;
             });
     };
@@ -240,7 +241,7 @@ const Checkout = () => {
                                 */}
                             <div className="checkout__input">
                                 <p>
-                                    Address<span>*</span>
+                                    Địa chỉ<span>*</span>
                                 </p>
                                 <input
                                     placeholder="Street Address"
@@ -277,7 +278,7 @@ const Checkout = () => {
                                 <div className="col-lg-6">
                                     <div className="checkout__input">
                                         <p>
-                                            Phone<span>*</span>
+                                            Số điện thoại<span>*</span>
                                         </p>
                                         <input
                                             type="text"
@@ -305,21 +306,21 @@ const Checkout = () => {
                             </div>
                             <div className="checkout__input">
                                 <p>
-                                    Order notes<span>*</span>
+                                    Ghi chú<span>*</span>
                                 </p>
                                 <input
                                     type="text"
                                     value={notes}
                                     onChange={(e) => setNotes(e.target.value)}
-                                    placeholder="Notes about your order, e.g. special notes htmlFor delivery."
+                                    placeholder="Ghi chú"
                                 />
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-6">
+                        <div className="col-lg-4.5 col-md-7">
                             <div className="checkout__order">
-                                <h4>Your Order</h4>
+                                <h4>Đơn hàng của bạn</h4>
                                 <div className="checkout__order__products">
-                                    Products <span>Total</span>
+                                    Sản phẩm <span>Tổng </span>
                                 </div>
                                 <ul>
                                     {loading ? (
@@ -332,7 +333,7 @@ const Checkout = () => {
                                                     x {cart.price})
                                                     <span>
                                                         {cart.price *
-                                                            cart.quantity}
+                                                            cart.quantity}đ
                                                     </span>
                                                 </li>
                                             );
@@ -340,7 +341,7 @@ const Checkout = () => {
                                     )}
                                 </ul>
                                 <div className="checkout__order__total">
-                                    Total <span>{total}</span>
+                                    Tổng tiền <span>{total}đ</span>
                                 </div>
                                 {/*{wait ? (
                                     <button

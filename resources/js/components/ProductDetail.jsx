@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import swal from "sweetalert";
 
+const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 const ProductDetail = () => {
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -96,7 +99,7 @@ const ProductDetail = () => {
                                     <span>(18 reviews)</span>
                                 </div>
                                 <div className="product__details__price">
-                                    {product.price}vnđ
+                                <h5>{formatPrice(product.price)}đ</h5>
                                 </div>
                                 <p>{product.description}</p>
                                 <form
@@ -138,7 +141,7 @@ const ProductDetail = () => {
                                         className="primary-btn"
                                         style={{ border: "none" }}
                                     >
-                                        ADD TO CARD
+                                        THÊM VÀO GIỎ HÀNG
                                     </button>
                                 </form>
                                 <a href="#" className="heart-icon">
@@ -180,7 +183,7 @@ const ProductDetail = () => {
                                             role="tab"
                                             aria-selected="true"
                                         >
-                                            Description
+                                            Mô Tả
                                         </a>
                                     </li>
                                     <li className="nav-item">
@@ -191,7 +194,7 @@ const ProductDetail = () => {
                                             role="tab"
                                             aria-selected="false"
                                         >
-                                            Reviews <span>(1)</span>
+                                            Giới thiệu <span>(1)</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -202,7 +205,7 @@ const ProductDetail = () => {
                                         role="tabpanel"
                                     >
                                         <div className="product__details__tab__desc">
-                                            <h6>Products Infomation</h6>
+                                            <h6>Thông tin sản phẩm</h6>
                                             {product.details}
                                         </div>
                                     </div>
@@ -212,33 +215,20 @@ const ProductDetail = () => {
                                         role="tabpanel"
                                     >
                                         <div className="product__details__tab__desc">
-                                            <h6>Products Infomation</h6>
+                                            <h6>Giới thiệu sản phẩm</h6>
                                             <p>
-                                                Vestibulum ac diam sit amet quam
-                                                vehicula elementum sed sit amet
-                                                dui. Pellentesque in ipsum id
-                                                orci porta dapibus. Proin eget
-                                                tortor risus. Vivamus suscipit
-                                                tortor eget felis porttitor
-                                                volutpat. Vestibulum ac diam sit
-                                                amet quam vehicula elementum sed
-                                                sit amet dui. Donec rutrum
-                                                congue leo eget malesuada.
-                                                Vivamus suscipit tortor eget
-                                                felis porttitor volutpat.
-                                                Curabitur arcu erat, accumsan id
-                                                imperdiet et, porttitor at sem.
-                                                Praesent sapien massa, convallis
-                                                a pellentesque nec, egestas non
-                                                nisi. Vestibulum ac diam sit
-                                                amet quam vehicula elementum sed
-                                                sit amet dui. Vestibulum ante
-                                                ipsum primis in faucibus orci
-                                                luctus et ultrices posuere
-                                                cubilia Curae; Donec velit
-                                                neque, auctor sit amet aliquam
-                                                vel, ullamcorper sit amet
-                                                ligula. Proin eget tortor risus.
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu.                                                 Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu.                                                 Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu.                                                 Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu.                                                 Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu.                                                 Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu.                                                 Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu.                                                 Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu.                                                 Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
+                                                Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. Phone Store giới thiệu. 
                                             </p>
                                         </div>
                                     </div>

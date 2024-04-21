@@ -7,7 +7,7 @@
           <div class="hero__item set-bg" data-setbg="{{ asset('frontend/img/xiaomi.png') }}">
               <div class="hero__text">
                   <span>PHONE</span><br><br>
-                  <a href="#" class="primary-btn">SHOP NOW</a>
+                  <a href="#" class="primary-btn">MUA SẮM</a>
               </div>
           </div>
       </div>

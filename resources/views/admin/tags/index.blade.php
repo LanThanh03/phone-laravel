@@ -3,9 +3,9 @@
 @section('content')
         <div class="card">
             <div class="card-header">
-                <h3>tag List
+                <h3>DANH SÁCH TAG
                     <a href="{{ route('admin.tags.create') }}" class="btn btn-primary float-right">
-                        Create
+                        Thêm mới
                     </a>
                 </h3>     
             </div>
@@ -14,11 +14,11 @@
                     <table class="table table-striped table-bordered"  id = "tag-table">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Slug</th>
-                                <th>Tag Count</th>
-                                <th>Action</th>
+                                <th>ID</th>
+                                <th>Tên Tag</th>
+                                <th>Nhãn</th>
+                                <th>Số Lượng Tag</th>
+                                <th>Thao Tác</th>
                             </tr>
                         </thead>
                         <tbody>

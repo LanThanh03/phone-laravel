@@ -2,21 +2,31 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import swal from "sweetalert";
+import styles from "./products.module.css";
+const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 const ProductShop = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-
-    const search = window.location.pathname;
-    let slug = search.split("/").slice(-1).pop();
-    if (slug === "shop") {
-        slug = [""];
-    }
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage] = useState(6);
+    const [slug, setSlug] = useState("");
+    const [sortingBy, setSortingBy] = useState("default"); // Thêm state mới cho tiêu chí sắp xếp
 
     useEffect(() => {
+        const search = window.location.pathname;
+        let currentSlug = search.split("/").slice(-1).pop();
+        if (currentSlug === "shop") {
+            currentSlug = ""; // Chuyển "shop" thành chuỗi trống
+        }
+        setSlug(currentSlug); // Cập nhật giá trị slug
+
+        // Gọi API khi currentPage hoặc sortingBy thay đổi
         axios
-            .get(`/products/${slug}`)
+            .get(`/products/${currentSlug}?sortingBy=${sortingBy}`)
             .then((res) => {
                 if (res.status === 200) {
                     setProducts(res.data.products);
@@ -27,7 +37,13 @@ const ProductShop = () => {
                 setError(error.response.statusText);
                 setLoading(false);
             });
-    }, []);
+    }, [currentPage, slug, sortingBy]); // Thêm sortingBy vào dependency array
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const addToCart = (e, productId) => {
         e.preventDefault();
@@ -40,19 +56,8 @@ const ProductShop = () => {
         });
     };
 
-    const sorting = (sortingBy) => {
-        axios
-            .get(`/products/${slug}?sortingBy=${sortingBy}`)
-            .then((res) => {
-                if (res.status === 200) {
-                    setProducts(res.data.products);
-                }
-                setLoading(false);
-            })
-            .catch((error) => {
-                setError(error.response.statusText);
-                setLoading(false);
-            });
+    const handleSortingChange = (e) => {
+        setSortingBy(e.target.value); // Cập nhật tiêu chí sắp xếp khi thay đổi
     };
 
     return (
@@ -69,24 +74,24 @@ const ProductShop = () => {
                                     columnGap: ".5rem",
                                 }}
                             >
-                                <label>Sort By :</label>
+                                <label>Sắp xếp theo:</label>
                                 <select
                                     name="sortingBy"
                                     style={{ width: "150px" }}
                                     className="form-control"
-                                    onChange={(e) => sorting(e.target.value)}
+                                    onChange={handleSortingChange}
                                 >
                                     <option value="default">
-                                        Default sorting
+                                        Mặc định
                                     </option>
                                     <option value="popularity">
-                                        Popularity
+                                        Phổ biến
                                     </option>
                                     <option value="low-high">
-                                        Price: Low to High
+                                        Giá: Từ thấp tới cao
                                     </option>
                                     <option value="high-low">
-                                        Price: High to Low
+                                        Giá: Từ cao xuống thấp
                                     </option>
                                 </select>
                             </div>
@@ -95,7 +100,7 @@ const ProductShop = () => {
                     <div className="col-lg-4 col-md-4">
                         <div className="filter__found">
                             <h6>
-                                <span>{products.length}</span> Products found
+                                <span>{products.length}</span> Sản phẩm được tìm thấy
                             </h6>
                         </div>
                     </div>
@@ -111,11 +116,11 @@ const ProductShop = () => {
                 {loading ? (
                     <h3>Loading...</h3>
                 ) : error === "Not Found" ? (
-                    <h3>Not Found !</h3>
+                    <h3>Không tìm thấy !</h3>
                 ) : products.length === 0 ? (
-                    <h3>Not Found !</h3>
+                    <h3>Không tìm thấy !</h3>
                 ) : (
-                    products.map((product) => {
+                    currentProducts.map((product) => {
                         return (
                             <div
                                 key={product.id}
@@ -154,7 +159,7 @@ const ProductShop = () => {
                                                 {product.name}
                                             </a>
                                         </h6>
-                                        <h5>{product.price} vnđ</h5>
+                                        <h5>{formatPrice(product.price)}đ</h5>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +167,13 @@ const ProductShop = () => {
                     })
                 )}
             </div>
-            <div className="d-flex justify-content-center">pagination</div>
+            <div className={styles.pagination}> {/* Sử dụng className từ CSS module */}
+                {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
+                    <button key={index} onClick={() => paginate(index + 1)}>
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
         </>
     );
 };

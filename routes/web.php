@@ -28,6 +28,8 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
 Route::get('/shop/{slug?}', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/tag/{slug?}', [\App\Http\Controllers\ShopController::class, 'tag'])->name('shop.tag');
 Route::get('/product/{product:slug}', [\App\Http\Controllers\ProductController::class, 'show'])->name('product.show');
+Route::post('/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('search');
+
 
 
 // react route
@@ -48,6 +50,7 @@ Route::get('api/users', [\App\Http\Controllers\UserController::class, 'index']);
 
 
 Route::group(['middleware' => 'auth'], function() {
+
     
     Route::get('/order/checkout', [\App\Http\Controllers\OrderController::class, 'process'])->name('checkout.process');
     Route::get('/order/verifycheckout', [\App\Http\Controllers\OrderController::class, 'verifycheckout'])->name('order.store');
@@ -66,7 +69,8 @@ Route::group(['middleware' => 'auth'], function() {
         // products
         Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
         Route::post('products/images', [\App\Http\Controllers\Admin\ProductController::class,'storeImage'])->name('products.storeImage');
-        
+        // History
+        Route::resource('history', \App\Http\Controllers\Admin\HistoryController::class);
     });
 });
 Route::get('/export', [App\Http\Controllers\UserController::class, 'export'])->name('export');

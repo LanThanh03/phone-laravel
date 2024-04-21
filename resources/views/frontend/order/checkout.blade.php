@@ -2,15 +2,15 @@
 
 @section('content')
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
+    <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/ip14.png') }}">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
             <div class="breadcrumb__text">
-              <h2>Checkout</h2>
+              <h2>THANH TOÁN</h2>
               <div class="breadcrumb__option">
-                <a href="/">Home</a>
-                <span>Checkout</span>
+                <a href="/">Trang chủ</a>
+                <span>Thanh toán</span>
               </div>
             </div>
           </div>

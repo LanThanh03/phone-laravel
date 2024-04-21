@@ -46,7 +46,7 @@ const Cart = () => {
                 {carts.length === 0 ? (
                     <tr>
                         <td colSpan="5">
-                            Giỏ hàng trống{" "}
+                            Giỏ Hàng Đang Trống{" "}
                             <a href="/shop" className="btn btn-dark">
                                 Mua hàng tại đây!!!
                             </a>
@@ -132,7 +132,7 @@ const Cart = () => {
                                     <th className="shoping__product">
                                         Sản phẩm
                                     </th>
-                                    <th>Giá</th>
+                                    <th>Thành tiền</th>
                                     <th>Số lượng</th>
                                     <th>Tổng tiền</th>
                                     <th></th>
@@ -146,8 +146,8 @@ const Cart = () => {
             <div className="row">
                 <div className="col-lg-12">
                     <div className="shoping__cart__btns">
-                        <a href="/shop" className="primary-btn cart-btn">
-                            Tiếp tục mua hàng
+                        <a href="#" className="primary-btn cart-btn">
+                            TIẾP TỤC MUA SẮM
                         </a>
                         <a
                             href="#"
@@ -163,22 +163,20 @@ const Cart = () => {
                         <div className="shoping__discount">
                             <h5>Mã giảm giá</h5>
                             <form action="#">
-                            <input
-                    type="text"
-                    placeholder="Nhập mã giảm giá"
-                    value={discountCode}
-                    onChange={(e) => setDiscountCode(e.target.value)}
-                />
-                <button type="button" className="site-btn" onClick={applyDiscount}>
-                    Áp dụng
-                </button>
+                                <input
+                                    type="text"
+                                    placeholder="Enter your coupon code"
+                                />
+                                <button type="submit" className="site-btn">
+                                    APPLY COUPON
+                                </button>
                             </form>
                         </div>
                     </div>
     </div> */}
                 <div className="col-lg-6">
                     <div className="shoping__checkout">
-                        <h5>Tổng số tiên trong giỏ hàng của bạn</h5>
+                        <h5>Tổng Giỏ Hàng</h5>
                         <ul>
                             <li>
                                 Tổng tiền <span>{total}vnđ</span>

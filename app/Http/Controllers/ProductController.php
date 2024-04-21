@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $products = Product::where('name', 'like', "%$keyword%")
+                           ->orWhere('slug', 'like', "%$keyword%")
+                           ->get();
+
+        return response()->json(['products' => $products]);
+    }
 
     public function show(Request $request, Product $product)
     {
