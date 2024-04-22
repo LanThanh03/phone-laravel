@@ -117,6 +117,13 @@ const Checkout = () => {
 
     const placeOrder = (e) => {
         e.preventDefault();
+        // Kiểm tra các trường thông tin bắt buộc trước khi gửi yêu cầu đặt hàng
+        if (!fullName || !province || !city || !address || !phone || !email) {
+            // Hiển thị thông báo lỗi và không tiến hành đặt hàng
+            alert("Vui lòng điền đủ thông tin để tiếp tục đặt hàng.");
+            return;
+        }
+        // Nếu các trường thông tin đều được điền, tiến hành gửi yêu cầu đặt hàng
         setWait(true);
         axios
             .post(`/api/checkout`, {

@@ -89,7 +89,7 @@ const ProductDetail = () => {
                         </div>
                         <div className="col-lg-6 col-md-6">
                             <div className="product__details__text">
-                                <h3>{product.name}</h3>
+                                <h2>{product.name}</h2>
                                 <div className="product__details__rating">
                                     <i className="fa fa-star"></i>
                                     <i className="fa fa-star"></i>
@@ -99,7 +99,7 @@ const ProductDetail = () => {
                                     <span>(18 reviews)</span>
                                 </div>
                                 <div className="product__details__price">
-                                <h5>{formatPrice(product.price)}đ</h5>
+                                <h3 style={{ color: 'red' }}>{formatPrice(product.price)}đ</h3>
                                 </div>
                                 <p>{product.description}</p>
                                 <form

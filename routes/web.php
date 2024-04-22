@@ -47,10 +47,10 @@ Route::post('api/checkout', [\App\Http\Controllers\OrderController::class, 'chec
 // get user login
 Route::get('api/users', [\App\Http\Controllers\UserController::class, 'index']);
 // ==========
+   Route::post('/comment/{product_id}', [\App\Http\Controllers\ProductController::class, 'postcomment'])->name('products.comment');
 
 
 Route::group(['middleware' => 'auth'], function() {
-
     
     Route::get('/order/checkout', [\App\Http\Controllers\OrderController::class, 'process'])->name('checkout.process');
     Route::get('/order/verifycheckout', [\App\Http\Controllers\OrderController::class, 'verifycheckout'])->name('order.store');

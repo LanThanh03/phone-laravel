@@ -136,11 +136,11 @@ const ProductList = () => {
                             </div>
                         </div>
                     ))}
-                    {products.length > visibleProducts && (
-                        <button className="btn btn-primary" disabled={loadingMore} onClick={loadMoreProducts}>
-                            {loadingMore ? 'Loading...' : 'Xem thêm'}
-                        </button>
-                    )}
+                                {products.length > visibleProducts && (
+                    <button className="btn btn-primary" disabled={loadingMore} onClick={loadMoreProducts}>
+                        {loadingMore ? 'Loading...' : `Xem thêm ${products.length - visibleProducts} sản phẩm`}
+                    </button>
+                )}
                 </>
             )}
         </>
