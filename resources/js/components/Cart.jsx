@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-
+const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 const Cart = () => {
     const [carts, setCarts] = useState([]);
     const [discountCode, setDiscountCode] = useState("");
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
+    const isEmptyCart = carts.length === 0;
 
     useEffect(() => {
         axios.get("carts").then((res) => {
@@ -69,7 +72,7 @@ const Cart = () => {
                                     <h5>{cart.name}</h5>
                                 </td>
                                 <td className="shoping__cart__price">
-                                    {cart.price}vnđ
+                                {formatPrice(cart.price)}đ
                                 </td>
                                 <td className="shoping__cart__quantity">
                                     <div className="quantity">
@@ -105,7 +108,7 @@ const Cart = () => {
                                     </div>
                                 </td>
                                 <td className="shoping__cart__total">
-                                    {cart.price * cart.quantity}vnđ
+                                {formatPrice(cart.price * cart.quantity)}đ
                                 </td>
                                 <td className="shoping__cart__item__close">
                                     <span
@@ -185,9 +188,11 @@ const Cart = () => {
                                 Total <span>{total}vnđ</span>
                                 </li>*/}
                         </ul>
-                        <a href="/order/checkout" className="primary-btn">
-                        Đặt hàng
-                        </a>
+                        {!isEmptyCart && (
+                            <a href="/order/checkout" className="primary-btn">
+                                Đặt hàng
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>

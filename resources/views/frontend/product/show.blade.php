@@ -45,16 +45,19 @@
         <br>
         <br>
         @foreach($comments as $com)
-        <div class = "media" >
-        <div class="media-body">
-          <a class = "pull-left" href="#">
+        <div class="media">
+    <div class="media-left">
+        <a href="#">
             <img width="50px" class="media-object" src="{{ asset('frontend/img/avt.png') }}">
-          </a>
-          <h4 class="media-heading">{{$com->cus->username}}</h4>
-          <p><b>{{$com->content}}</b></p>
-          <p>{{ $com->created_at->format('d/m/Y') }}</p>
-        </div>
-      </div>
+        </a>
+    </div>
+    <div class="media-body" style="margin-left: 10px;">
+        <h4 class="media-heading">{{$com->cus->username}}</h4>
+        <p><b>{{$com->content}}</b></p>
+        <p>{{ $com->created_at->format('d/m/Y H:i') }}</p>
+    </div>
+</div>
+
         @endforeach
       </div>
       <!--Comment END -->

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import swal from "sweetalert";
+const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 const ProductShop = () => {
     const [products, setProducts] = useState([]);
@@ -164,7 +167,7 @@ const ProductShop = () => {
                                         </div>
                                         <div className="product__item__text">
                                             <h6><a href={`/product/${product.slug}`}>{product.name}</a></h6>
-                                            <h5>{product.price} vnđ</h5>
+                                            <h5>{formatPrice(product.price)}đ</h5>
                                         </div>
                                     </div>
                                 </div>

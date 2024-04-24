@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-
+const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 const Checkout = () => {
     const [carts, setCarts] = useState([]);
     const [total, setTotal] = useState(0);
@@ -339,8 +341,8 @@ const Checkout = () => {
                                                     {cart.name} ({cart.quantity}{" "}
                                                     x {cart.price})
                                                     <span>
-                                                        {cart.price *
-                                                            cart.quantity}đ
+                                                    {formatPrice(cart.price *
+                                                            cart.quantity)}đ
                                                     </span>
                                                 </li>
                                             );
@@ -348,7 +350,7 @@ const Checkout = () => {
                                     )}
                                 </ul>
                                 <div className="checkout__order__total">
-                                    Tổng tiền <span>{total}đ</span>
+                                    Tổng tiền <span>{formatPrice(total)}đ</span>
                                 </div>
                                 {/*{wait ? (
                                     <button
