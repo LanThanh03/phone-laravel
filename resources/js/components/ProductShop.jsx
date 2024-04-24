@@ -39,7 +39,7 @@ const ProductShop = () => {
 
         axios.post("/carts", { productId }).then((res) => {
             if (res.status === 200) {
-                swal("Success", "Added to Cart !", "success");
+                swal("Thành công", "Thêm sản phẩm vào giỏ hàng thành công!", "success");
                 window.location.reload();
             }
         });

@@ -29,7 +29,7 @@ const Cart = () => {
             .then((res) => {
                 setCarts(Object.values(res.data.carts));
                 setTotal(res.data.cart_total);
-                swal("Success", "Updated Cart !", "info");
+                swal("Thành công", "Cập nhật giỏ hàng thành công !", "info");
             });
     };
 
@@ -37,7 +37,7 @@ const Cart = () => {
         axios.delete(`cart/${cartId}`).then((res) => {
             setCarts(carts.filter((cart) => cart.id !== cartId));
             setTotal(res.data.cart_total);
-            swal("Success", "Deleted Cart !", "warning");
+            swal("Thành công", "Xóa sản phẩm thành công !", "warning");
         });
     };
     let tbody = "";
@@ -149,16 +149,16 @@ const Cart = () => {
             <div className="row">
                 <div className="col-lg-12">
                     <div className="shoping__cart__btns">
-                        <a href="#" className="primary-btn cart-btn">
+                        <a href="/" className="primary-btn cart-btn">
                             TIẾP TỤC MUA SẮM
                         </a>
-                        <a
+                        {/* <a
                             href="#"
                             className="primary-btn cart-btn cart-btn-right"
                         >
                             <span className="icon_loading"></span>
                             Cập nhật giỏ hàng
-                        </a>
+                        </a> */}
                     </div>
                 </div>
                 {/*<div className="col-lg-6">
@@ -182,7 +182,7 @@ const Cart = () => {
                         <h5>Tổng Giỏ Hàng</h5>
                         <ul>
                             <li>
-                                Tổng tiền <span>{total}vnđ</span>
+                                Tổng tiền <span>{formatPrice(total)}đ</span>
                             </li>
                             {/*<li>
                                 Total <span>{total}vnđ</span>

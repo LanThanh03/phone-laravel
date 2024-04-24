@@ -141,6 +141,7 @@ const Checkout = () => {
                 notes,
             })
             .then((res) => {
+                swal("Thành công", "Đặt hàng thành công!", "success");
                 setTotal(0);
                 window.location.href = res.data.testemail;
                 window.location.href = '/';

@@ -190,7 +190,7 @@
                   >
                 </li>
               </ul>
-              <div class="header__cart__price">item: <span>{{ $cartTotal }}vnđ</span></div>
+              <div class="header__cart__price">item: <span>{{ number_format($cartTotal, 0, ',', ',') }}đ</span></div>
             </div>
           </div>
         </div>

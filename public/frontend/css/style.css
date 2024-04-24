@@ -866,6 +866,7 @@ ol {
   position: relative;
   overflow: hidden;
   background-position: center center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .featured__item__pic__hover {
@@ -880,6 +881,11 @@ ol {
   -o-transition: all, 0.5s;
   transition: all, 0.5s;
 }
+.featured__item__pic:hover {
+  transform: scale(1.1); /* Tăng kích thước của ảnh lên 110% khi hover */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ khi hover */
+}
+
 
 .featured__item__pic__hover li {
   list-style: none;
