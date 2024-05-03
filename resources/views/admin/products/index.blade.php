@@ -3,9 +3,12 @@
 @section('content')
         <div class="card">
             <div class="card-header">
-                <h3>product List
+                <h3>DANH SÁCH SẢN PHẨM
+                    <a href="{{ route('export') }}" class="btn btn-success float-right">
+                        Export
+                    </a>
                     <a href="{{ route('admin.products.create') }}" class="btn btn-primary float-right">
-                        Create
+                        Thêm mới
                     </a>
                 </h3>     
             </div>
@@ -14,14 +17,14 @@
                     <table class="table table-striped table-bordered" id = "product-table">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Category</th>
+                                <th>ID</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Danh Mục</th>
                                 <th>Tag</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Image</th>
-                                <th>Action</th>
+                                <th>Giá Tiền</th>
+                                <th>Số Lượng</th>
+                                <th>Hình Ảnh</th>
+                                <th>Thao Tác</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-
+const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 const Checkout = () => {
     const [carts, setCarts] = useState([]);
     const [total, setTotal] = useState(0);
@@ -117,6 +119,13 @@ const Checkout = () => {
 
     const placeOrder = (e) => {
         e.preventDefault();
+        // Kiểm tra các trường thông tin bắt buộc trước khi gửi yêu cầu đặt hàng
+        if (!fullName || !province || !city || !address || !phone || !email) {
+            // Hiển thị thông báo lỗi và không tiến hành đặt hàng
+            alert("Vui lòng điền đủ thông tin để tiếp tục đặt hàng.");
+            return;
+        }
+        // Nếu các trường thông tin đều được điền, tiến hành gửi yêu cầu đặt hàng
         setWait(true);
         axios
             .post(`/api/checkout`, {
@@ -132,8 +141,10 @@ const Checkout = () => {
                 notes,
             })
             .then((res) => {
+                swal("Thành công", "Đặt hàng thành công!", "success");
                 setTotal(0);
-                window.location.href = res.data;
+                window.location.href = res.data.testemail;
+                window.location.href = '/';
                 return null;
             });
     };
@@ -240,7 +251,7 @@ const Checkout = () => {
                                 */}
                             <div className="checkout__input">
                                 <p>
-                                    Address<span>*</span>
+                                    Địa chỉ<span>*</span>
                                 </p>
                                 <input
                                     placeholder="Street Address"
@@ -277,7 +288,7 @@ const Checkout = () => {
                                 <div className="col-lg-6">
                                     <div className="checkout__input">
                                         <p>
-                                            Phone<span>*</span>
+                                            Số điện thoại<span>*</span>
                                         </p>
                                         <input
                                             type="text"
@@ -305,21 +316,21 @@ const Checkout = () => {
                             </div>
                             <div className="checkout__input">
                                 <p>
-                                    Order notes<span>*</span>
+                                    Ghi chú<span>*</span>
                                 </p>
                                 <input
                                     type="text"
                                     value={notes}
                                     onChange={(e) => setNotes(e.target.value)}
-                                    placeholder="Notes about your order, e.g. special notes htmlFor delivery."
+                                    placeholder="Ghi chú"
                                 />
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-6">
+                        <div className="col-lg-4.5 col-md-7">
                             <div className="checkout__order">
-                                <h4>Your Order</h4>
+                                <h4>Đơn hàng của bạn</h4>
                                 <div className="checkout__order__products">
-                                    Products <span>Total</span>
+                                    Sản phẩm <span>Tổng </span>
                                 </div>
                                 <ul>
                                     {loading ? (
@@ -331,8 +342,8 @@ const Checkout = () => {
                                                     {cart.name} ({cart.quantity}{" "}
                                                     x {cart.price})
                                                     <span>
-                                                        {cart.price *
-                                                            cart.quantity}
+                                                    {formatPrice(cart.price *
+                                                            cart.quantity)}đ
                                                     </span>
                                                 </li>
                                             );
@@ -340,7 +351,7 @@ const Checkout = () => {
                                     )}
                                 </ul>
                                 <div className="checkout__order__total">
-                                    Total <span>{total}</span>
+                                    Tổng tiền <span>{formatPrice(total)}đ</span>
                                 </div>
                                 {/*{wait ? (
                                     <button

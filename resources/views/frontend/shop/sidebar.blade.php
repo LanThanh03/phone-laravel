@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div class="sidebar__item">
-    <h4>Categories</h4>
+    <h4>DANH MỤC</h4>
     <ul>
         @foreach($menu_categories as $menu_category)
         <li>

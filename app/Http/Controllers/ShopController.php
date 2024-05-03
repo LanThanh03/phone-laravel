@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Tag;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -42,25 +43,24 @@ class ShopController extends Controller
 
         if(!is_null($slug)){
             $category = Category::whereSlug($slug)->firstOrFail();
-            
-            
-            if (is_null($category->category_id)) {
         
+            if (is_null($category->category_id)) {
                 $categoriesIds = Category::whereCategoryId($category->id)->pluck('id')->toArray();
                 $categoriesIds[] = $category->id;
                 $products = $products->whereHas('category', function ($query) use ($categoriesIds) {
                     $query->whereIn('id', $categoriesIds);
                 });               
-
+        
             } else {
                 $products = $products->whereHas('category', function ($query) use ($slug) {
                     $query->where([
                         'slug' => $slug,
                     ]);
                 });
-
+        
             }
         }
+        
 
         $products = $products->orderBy($sortField, $sortType)->get();
 
@@ -91,9 +91,8 @@ class ShopController extends Controller
                 $sortField = 'id';
                 $sortType = 'asc';
         }
-
+    
         $products = Product::with('tags');
-
         $products = $products->whereHas('tags', function ($query) use($slug) {
             $query->where([
                 'slug' => $slug,
@@ -101,7 +100,13 @@ class ShopController extends Controller
         })
         ->orderBy($sortField, $sortType)
         ->paginate(6);
-
-        return view('frontend.shop.index', compact('products','slug'));
+    
+        // Calculate cart total and count here
+        $cartTotal = \Cart::getTotal();
+        $cartCount = \Cart::getContent()->count();
+    
+        // Pass these variables to the view
+        return view('frontend.shop.index', compact('products', 'slug', 'cartTotal', 'cartCount'));
     }
+    
 }

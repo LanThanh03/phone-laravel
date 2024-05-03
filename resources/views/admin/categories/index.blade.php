@@ -3,9 +3,9 @@
 @section('content')
         <div class="card">
             <div class="card-header">
-                <h3>Category List
+                <h3> DANH SÁCH DANH MỤC
                     <a href="{{ route('admin.categories.create') }}" class="btn btn-primary float-right">
-                        Create
+                        Thêm mới
                     </a>
                 </h3>     
             </div>
@@ -14,13 +14,13 @@
                     <table class="table table-striped table-bordered"  id = "categories-table">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Slug</th>
-                                <th>Product Count</th>
-                                <th>Image</th>
-                                <th>Parent</th>
-                                <th>Action</th>
+                                <th>ID</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Nhãn</th>
+                                <th>Số Lượng Tag</th>
+                                <th>Hình Ảnh</th>
+                                <th>Danh Mục Lớn</th>
+                                <th>Thao Tác</th>
                             </tr>
                         </thead>
                         <tbody>

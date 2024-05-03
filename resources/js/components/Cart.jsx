@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-
+const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 const Cart = () => {
     const [carts, setCarts] = useState([]);
+    const [discountCode, setDiscountCode] = useState("");
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
+    const isEmptyCart = carts.length === 0;
 
     useEffect(() => {
         axios.get("carts").then((res) => {
@@ -25,7 +29,7 @@ const Cart = () => {
             .then((res) => {
                 setCarts(Object.values(res.data.carts));
                 setTotal(res.data.cart_total);
-                swal("Success", "Updated Cart !", "info");
+                swal("Thành công", "Cập nhật giỏ hàng thành công !", "info");
             });
     };
 
@@ -33,10 +37,9 @@ const Cart = () => {
         axios.delete(`cart/${cartId}`).then((res) => {
             setCarts(carts.filter((cart) => cart.id !== cartId));
             setTotal(res.data.cart_total);
-            swal("Success", "Deleted Cart !", "warning");
+            swal("Thành công", "Xóa sản phẩm thành công !", "warning");
         });
     };
-
     let tbody = "";
     if (loading) {
         return <h3>Loading....</h3>;
@@ -46,9 +49,9 @@ const Cart = () => {
                 {carts.length === 0 ? (
                     <tr>
                         <td colSpan="5">
-                            Cart is Empty{" "}
+                            Giỏ Hàng Đang Trống{" "}
                             <a href="/shop" className="btn btn-dark">
-                                Go Shopping
+                                Mua hàng tại đây!!!
                             </a>
                         </td>
                     </tr>
@@ -69,7 +72,7 @@ const Cart = () => {
                                     <h5>{cart.name}</h5>
                                 </td>
                                 <td className="shoping__cart__price">
-                                    {cart.price}vnđ
+                                {formatPrice(cart.price)}đ
                                 </td>
                                 <td className="shoping__cart__quantity">
                                     <div className="quantity">
@@ -105,7 +108,7 @@ const Cart = () => {
                                     </div>
                                 </td>
                                 <td className="shoping__cart__total">
-                                    {cart.price * cart.quantity}vnđ
+                                {formatPrice(cart.price * cart.quantity)}đ
                                 </td>
                                 <td className="shoping__cart__item__close">
                                     <span
@@ -130,11 +133,11 @@ const Cart = () => {
                             <thead>
                                 <tr>
                                     <th className="shoping__product">
-                                        Products
+                                        Sản phẩm
                                     </th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
+                                    <th>Thành tiền</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng tiền</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -146,22 +149,22 @@ const Cart = () => {
             <div className="row">
                 <div className="col-lg-12">
                     <div className="shoping__cart__btns">
-                        <a href="#" className="primary-btn cart-btn">
-                            CONTINUE SHOPPING
+                        <a href="/" className="primary-btn cart-btn">
+                            TIẾP TỤC MUA SẮM
                         </a>
-                        <a
+                        {/* <a
                             href="#"
                             className="primary-btn cart-btn cart-btn-right"
                         >
                             <span className="icon_loading"></span>
-                            Upadate Cart
-                        </a>
+                            Cập nhật giỏ hàng
+                        </a> */}
                     </div>
                 </div>
-                <div className="col-lg-6">
+                {/*<div className="col-lg-6">
                     <div className="shoping__continue">
                         <div className="shoping__discount">
-                            <h5>Discount Codes</h5>
+                            <h5>Mã giảm giá</h5>
                             <form action="#">
                                 <input
                                     type="text"
@@ -173,21 +176,23 @@ const Cart = () => {
                             </form>
                         </div>
                     </div>
-                </div>
+    </div> */}
                 <div className="col-lg-6">
                     <div className="shoping__checkout">
-                        <h5>Cart Total</h5>
+                        <h5>Tổng Giỏ Hàng</h5>
                         <ul>
                             <li>
-                                Subtotal <span>{total}vnđ</span>
+                                Tổng tiền <span>{formatPrice(total)}đ</span>
                             </li>
-                            <li>
+                            {/*<li>
                                 Total <span>{total}vnđ</span>
-                            </li>
+                                </li>*/}
                         </ul>
-                        <a href="/order/checkout" className="primary-btn">
-                            PROCEED TO CHECKOUTS
-                        </a>
+                        {!isEmptyCart && (
+                            <a href="/order/checkout" className="primary-btn">
+                                Đặt hàng
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>

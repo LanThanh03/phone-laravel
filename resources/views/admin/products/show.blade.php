@@ -5,7 +5,7 @@
             <div class="card-header">
                 <h3>{{ $product->name }}
                     <a href="{{ route('admin.products.index') }}" class="btn btn-primary float-right">
-                        Go Back
+                        Quay lại
                     </a>
                 </h3>     
             </div>
@@ -14,7 +14,7 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr>
-                                <th>Images</th>
+                                <th>Hình Ảnh</th>
                                 <td colspan="6"></td>
                             </tr>
                             <tr>
@@ -31,11 +31,11 @@
                                 @endforelse
                             </tr>
                             <tr>
-                                <th>Description</th>
+                                <th>Mô Tả</th>
                                 <td colspan="6">{{ $product->description }}</td>
                             </tr>
                             <tr>
-                                <th>Details</th>
+                                <th>Chi Tiết</th>
                                 <td colspan="6">{{ $product->details }}</td>
                             </tr>
                         </tbody>
