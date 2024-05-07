@@ -30,9 +30,11 @@
 
 **D. CART**  
 ![image](https://github.com/LanThanh03/phone-laravel/assets/126663078/f40973b7-9f70-4778-bbf4-6c74859b0278)
-
-**E. CHECKOUT**
+- Add, delete, update items in the shopping cart  
+- Display the total amount in the shopping cart  
+**E. CHECKOUT**  
 ![image](https://github.com/LanThanh03/phone-laravel/assets/126663078/c1e60d15-eda0-4b8a-b11b-04ef523d6b1b)
+
 - Mail:  
 ![image](https://github.com/LanThanh03/phone-laravel/assets/126663078/631827da-e023-432c-8c92-18500c1fb0a1)
 
